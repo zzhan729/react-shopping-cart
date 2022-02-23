@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
 import formateCurrency from '../util';
+import Fade from '@stahl.luke/react-reveal';
 
 export default class Cart extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            name:"",
-            email:"",
-            address:"",
-            showCheckout: false }
+        this.state = {
+            name: "",
+            email: "",
+            address: "",
+            showCheckout: false
+        }
     }
 
-    handleInput = (e) =>{
-        this.setState({[e.target.name]: e.target.value})
+    handleInput = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
     }
 
-    creatOrder = (e) =>{
+    creatOrder = (e) => {
         e.preventDefault();
         const order = {
             name: this.state.name,
@@ -37,23 +39,25 @@ export default class Cart extends Component {
                 }
 
                 <div className='cart'>
-                    <ul className='cart-items'>
-                        {cartItems.map((item) => (
-                            <li key={item._id}>
-                                <div>
-                                    <img src={item.image} alt={item.title}></img>
-                                </div>
-                                <div>
-                                    <div>{item.title}</div>
-                                    <div className='right'>
-                                        {formateCurrency(item.price)} x {item.count} {" "}
-                                        <button onClick={() => this.props.removeFromCart(item)}>Remove</button>
+                    <Fade left cascade>
+                        <ul className='cart-items'>
+                            {cartItems.map((item) => (
+                                <li key={item._id}>
+                                    <div>
+                                        <img src={item.image} alt={item.title}></img>
                                     </div>
-                                </div>
-                            </li>
-                        )
-                        )}
-                    </ul>
+                                    <div>
+                                        <div>{item.title}</div>
+                                        <div className='right'>
+                                            {formateCurrency(item.price)} x {item.count} {" "}
+                                            <button onClick={() => this.props.removeFromCart(item)}>Remove</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            )
+                            )}
+                        </ul>
+                    </Fade>
                 </div>
                 {cartItems.length !== 0 && (
                     <div>
@@ -74,6 +78,7 @@ export default class Cart extends Component {
                         </div>
                         {this.state.showCheckout && (
                             <div className='cart'>
+                            <Fade right cascade>
                                 <form onSubmit={this.creatOrder}>
                                     <ul className='form-container'>
                                         <li>
@@ -93,6 +98,7 @@ export default class Cart extends Component {
                                         </li>
                                     </ul>
                                 </form>
+                            </Fade>    
                             </div>
                         )}
                     </div>
