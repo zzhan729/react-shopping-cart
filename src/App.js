@@ -3,17 +3,14 @@ import { Provider } from "react-redux";
 import Cart from "./components/Cart";
 import Filter from "./components/Filter";
 import Products from "./components/Products";
-import data from "./data.json";
+
 import store from "./store";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      products: data.products,
       cartItems: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [],
-      size: "",
-      sort: ""
     };
   }
 
